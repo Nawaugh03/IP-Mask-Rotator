@@ -28,7 +28,7 @@ class IPRotator:
         url="https://free-proxy-list.net/"
         response=requests.get(url)
         soup=BeautifulSoup(response.text, 'html.parser')
-        for row in soup.find("table",attrs={"id":"proxylisttable"}).find_all("tr")[1:]:
+        for row in soup.find("table").find_all("tr")[1:]:
             tds=row.find_all("td")
             try:
                address=tds[0].text.strip()
