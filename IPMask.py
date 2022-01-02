@@ -19,16 +19,27 @@ class IPRotator:
         #print("IP Proxy Rotator online.")
         self.headval=None
         self.currentIP=None
-        self.add_IP()
+        if self.__webtest__() is not None:
+            self.add_IP()
+            print("Rotator ready")
+        else:
+            print("Rotator need to be updated")
 
     def __del__(self):
         self.clearPlate()
-
-    def add_IP(self):
+    def __webtest__(self):
+        A=None
         url="https://free-proxy-list.net/"
         response=requests.get(url)
         soup=BeautifulSoup(response.text, 'html.parser')
-        for row in soup.find("table").find_all("tr")[1:]:
+        try:
+            A=soup.find("table").find_all("tr")[1:]
+        except:
+            A=None
+        return A
+    def add_IP(self):
+        
+        for row in self.__webtest__():
             tds=row.find_all("td")
             try:
                address=tds[0].text.strip()
@@ -46,7 +57,7 @@ class IPRotator:
                   continue
             except:
                 continue
-    
+
     def setProxy(self):
         return self.currentIP.IPaddress
 
@@ -82,4 +93,4 @@ class IPRotator:
     def refresh(self):
         self.clearPlate()
         self.add_IP()
-        
+     
