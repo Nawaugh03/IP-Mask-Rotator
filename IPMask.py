@@ -58,7 +58,7 @@ class IPRotator:
             except:
                 continue
 
-    def setProxy(self):
+    def getCurrentIP_Proxy(self):
         return self.currentIP.IPaddress
 
     def rotate(self):
@@ -67,10 +67,12 @@ class IPRotator:
         else:
             self.currentIP=self.currentIP.nextval
 
-    def PrintCIP(self):
+    def PrintCurrentIP(self):
         print("This is current IP address:")
         print(self.currentIP.IPaddress)
 
+    def setproxyrequest(self):
+        return {"http":getCurrentIP_Proxy(),"https":getCurrentIP_Proxy()}
     def printlist(self):
         currentvalue=self.headval
         while currentvalue.nextval != None:
@@ -81,7 +83,7 @@ class IPRotator:
                 print(currentvalue.IPaddress)
             currentvalue=currentvalue.nextval
 
-    def clearPlate(self):
+    def clearPlate(self):  
         current=self.headval
         next=None
         while (current!=None):
@@ -93,4 +95,7 @@ class IPRotator:
     def refresh(self):
         self.clearPlate()
         self.add_IP()
-     
+   
+if __name__ =='__main__':
+    Test=IPRotator()
+    Test.PrintCIP()
